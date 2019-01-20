@@ -5,7 +5,6 @@ import './App.css';
 import Header from './Components/Layout/Header';
 import AddTodo from './Components/AddTodo';
 import About from './Components/Pages/About';
-import uuid from 'uuid';
 import axios from 'axios';
 
 class App extends Component {
@@ -24,25 +23,26 @@ class App extends Component {
   }
 
   deleteTodo = (id) => {
-    this.setState({todos: [...this.state.todos.filter(todo => 
+    axios
+    .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+    .then(res => this.setState({todos: [...this.state.todos.filter(todo =>
       todo.id !== id)]
-    });
+    }));
   }
 
   addTodo = (title) =>{
-    const newTodo = {
-      id: uuid.v4(),
+    axios.post('https://jsonplaceholder.typicode.com/todos', {
       title,
-      completed: false
-    }
-    this.setState({todos: [...this.state.todos, newTodo]})
+      completed : false
+    })
+    .then(res => this.setState({todos: [...this.state.todos, res.data]}));
   }
 
   componentDidMount() {
     axios
       .get('https://jsonplaceholder.typicode.com/todos?_limit=10')
       .then(res => {
-        console.log(res); 
+        console.log(res);
         this.setState({todos: res.data});
       });
   }
@@ -56,8 +56,8 @@ class App extends Component {
             <Route exact path="/" render={props => (
               <React.Fragment>
                 <AddTodo addTodo={this.addTodo} />
-                <Todos 
-                  todos={this.state.todos} 
+                <Todos
+                  todos={this.state.todos}
                   markComplete={this.markComplete}
                   deleteTodo={this.deleteTodo}
                 />
