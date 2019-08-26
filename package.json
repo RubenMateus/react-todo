@@ -10,7 +10,7 @@
     "react-scripts": "3.0.1"
   },
   "devDependencies": {
-    "eslint": "6.1.0",
+    "eslint": "6.2.2",
     "gh-pages": "^2.1.0"
   },
   "scripts": {
