@@ -1,8 +1,5 @@
 language: node_js
 node_js: 12
-addons:
-  code_climate:
-    repo_token: CODE_CLIMATE_TOKEN
 script: npm run test
 before_script:
   - npm install
