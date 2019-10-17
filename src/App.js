@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Todos from './Components/Todos'
-import './App.css';
 import Header from './Components/Layout/Header';
 import AddTodo from './Components/AddTodo';
 import About from './Components/Pages/About';
@@ -42,7 +41,6 @@ class App extends Component {
     axios
       .get('https://jsonplaceholder.typicode.com/todos?_limit=10')
       .then(res => {
-        console.log(res);
         this.setState({todos: res.data});
       });
   }
