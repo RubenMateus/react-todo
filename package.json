@@ -17,11 +17,11 @@
     "predeploy": "npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage --watchAll",
+    "test": "react-scripts test --coverage --no-cache",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app airbnb"
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
