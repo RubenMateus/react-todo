@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Todos from './Components/Todos'
-import Header from './Components/Layout/Header';
-import AddTodo from './Components/AddTodo';
-import About from './Components/Pages/About';
+import Todos from './components/Todos'
+import { Header } from './components/layout/Header';
+import AddTodo from './components/AddTodo';
+import About from './components/pages/About';
 import axios from 'axios';
+import { Content } from './components/layout/Content';
 
 class App extends Component {
   state = {
@@ -51,15 +52,16 @@ class App extends Component {
         <div className="App">
           <div className="container">
             <Header />
+            <Content />
             <Route exact path="/" render={props => (
-              <React.Fragment>
+              <>
                 <AddTodo addTodo={this.addTodo} />
                 <Todos
                   todos={this.state.todos}
                   markComplete={this.markComplete}
                   deleteTodo={this.deleteTodo}
                 />
-              </React.Fragment>
+              </>
             )}/>
             <Route path="/about" component={About}/>
           </div>
@@ -69,4 +71,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export  { App };
