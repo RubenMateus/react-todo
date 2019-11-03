@@ -18,24 +18,5 @@ export const Header = () => (
       </div>
     </nav>
     <h1>TodoList</h1>
-    <Link style={linkStyle} to="/">
-      Home
-    </Link>
-    |
-    <Link style={linkStyle} to="/about">
-      About
-    </Link>
   </header>
 );
-
-const headerStyle = {
-  backgroundColor: "#333",
-  color: "#fff",
-  textAlign: "center",
-  padding: "10px"
-};
-
-const linkStyle = {
-  color: "#fff",
-  textDecoration: "none"
-};
