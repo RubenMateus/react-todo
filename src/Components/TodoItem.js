@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class TodoItem extends Component {
   getStyle = () => {
     return {
-      backgroundColor: '#f4f4f4',
-      padding: '10px',
-      borderBottom: '1px #ccc dotted',
-      textDecoration: this.props.todo.completed ? 'line-through' : 'none'
+      backgroundColor: "#f4f4f4",
+      padding: "10px",
+      borderBottom: "1px #ccc dotted",
+      textDecoration: this.props.todo.completed ? "line-through" : "none"
     };
   };
 
@@ -20,7 +20,7 @@ export default class TodoItem extends Component {
             type="checkbox"
             checked={this.props.todo.completed}
             onChange={this.props.markComplete.bind(this, id)}
-          />{' '}
+          />{" "}
           {title}
           <button
             onClick={this.props.deleteTodo.bind(this, id)}
@@ -35,13 +35,13 @@ export default class TodoItem extends Component {
 }
 
 const btnStyle = {
-  backgroundColor: '#61B5A8',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '3px',
-  padding: '5px 10px',
-  cursor: 'pointer',
-  float: 'right'
+  backgroundColor: "#61B5A8",
+  color: "#fff",
+  border: "none",
+  borderRadius: "3px",
+  padding: "5px 10px",
+  cursor: "pointer",
+  float: "right"
 };
 
 TodoItem.propTypes = {

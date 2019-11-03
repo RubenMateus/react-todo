@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaPizzaSlice } from 'react-icons/fa';
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaPizzaSlice } from "react-icons/fa";
 
 export const Header = () => (
   <header className="header" data-testid="header" style={headerStyle}>
@@ -29,13 +29,13 @@ export const Header = () => (
 );
 
 const headerStyle = {
-  backgroundColor: '#333',
-  color: '#fff',
-  textAlign: 'center',
-  padding: '10px'
+  backgroundColor: "#333",
+  color: "#fff",
+  textAlign: "center",
+  padding: "10px"
 };
 
 const linkStyle = {
-  color: '#fff',
-  textDecoration: 'none'
+  color: "#fff",
+  textDecoration: "none"
 };

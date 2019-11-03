@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import {
   FaChevronDown,
   FaInbox,
   FaRegCalendarAlt,
   FaRegCalendar
-} from 'react-icons/fa';
+} from "react-icons/fa";
 
 export const Sidebar = props => (
   <div className="sidebar" data-testid="sidebar">
