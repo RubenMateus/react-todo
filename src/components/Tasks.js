@@ -5,7 +5,7 @@ import { useTasks } from "../hooks";
 export const Tasks = () => {
   const { tasks } = useTasks("1");
 
-  let projectName = "";
+  const projectName = "";
 
   return (
     <div className="tasks" data-testid="tasks">
