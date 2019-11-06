@@ -29,8 +29,8 @@ ul {
   padding: 0;
 }
 
-$generic-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px,
-  rgba(0, 0, 0, 0.1) 0px 4px 11px;
+$generic-box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px,
+  rgba(0, 0, 0, 0.1) 0 4px 11px;
 $generic-border: 1px solid #f1f1f1;
 $generic-bg: #db4c3f;
 
@@ -81,7 +81,7 @@ $generic-bg: #db4c3f;
   font-weight: bold;
   font-size: 13px !important;
   line-height: 17px;
-  padding: 6px 12px 7px 12px;
+  padding: 6px 12px 7px;
   position: relative;
   display: inline-block;
   white-space: nowrap;
@@ -162,8 +162,8 @@ header {
     align-items: center;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
     max-width: 922px;
     margin: auto;
     height: 44px;
