@@ -1,18 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import { Header } from "./components/layout/Header";
 import { Content } from "./components/layout/Content";
+import { ProjectsProvider, SelectedProjectProvider } from "./context";
 
-class App extends Component {
-  render() {
-    return (
+export const App = () => (
+  <SelectedProjectProvider>
+    <ProjectsProvider>
       <div className="App">
-        <div className="container">
-          <Header />
-          <Content />
-        </div>
+        <Header />
+        <Content />
       </div>
-    );
-  }
-}
-
-export { App };
+    </ProjectsProvider>
+  </SelectedProjectProvider>
+);
