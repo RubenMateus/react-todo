@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import PropTypes from "prop-types";
 import { useProjectsValue, useSelectedProjectValue } from "../context";
 import { firebase } from "../firebase";
 
@@ -8,7 +9,7 @@ export const Project = ({ project }) => {
   const { projects, setProjects } = useProjectsValue();
   const { setSelectedProject } = useSelectedProjectValue();
 
-  const deleteProject = docId => {
+  const deleteProject = (docId) => {
     firebase
       .firestore()
       .collection("projects")
@@ -25,4 +26,8 @@ export const Project = ({ project }) => {
       <span className="sidebar__dot">•</span>
     </>
   );
+};
+
+Project.propTypes = {
+  project: PropTypes.shape.isRequired,
 };

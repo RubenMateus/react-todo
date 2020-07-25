@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import {
   FaChevronDown,
   FaInbox,
   FaRegCalendarAlt,
-  FaRegCalendar
+  FaRegCalendar,
 } from "react-icons/fa";
 import { useSelectedProjectValue } from "../../context";
 
