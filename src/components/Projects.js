@@ -10,12 +10,12 @@ export const Projects = ({ activeValue = null }) => {
 
   return (
     projects &&
-    projects.map(project => (
+    projects.map((project) => (
       <li
         key={project.projectId}
         data-doc-id={project.docId}
         data-testid="project-action"
-        role=""
+        role="menuitem"
         className={
           active === project.projectId
             ? "active sidebar__project"
