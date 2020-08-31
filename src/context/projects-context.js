@@ -15,7 +15,7 @@ export const ProjectsProvider = ({ children }) => {
 };
 
 ProjectsProvider.propTypes = {
-  children: PropTypes.shape.isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 export const useProjectsValue = () => useContext(ProjectsContext);

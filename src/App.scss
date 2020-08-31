@@ -5,6 +5,7 @@ html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 *,
 *:before,
 *:after {
@@ -29,11 +30,14 @@ ul {
   padding: 0;
 }
 
-$generic-box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px,
-  rgba(0, 0, 0, 0.1) 0 4px 11px;
+// Variables
+$generic-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px,
+  rgba(0, 0, 0, 0.1) 0px 4px 11px;
 $generic-border: 1px solid #f1f1f1;
 $generic-bg: #db4c3f;
 
+/* Mixins
+     ============================================ */
 @mixin box-overlay() {
   -webkit-box-shadow: $generic-box-shadow;
   box-shadow: $generic-box-shadow;
@@ -52,7 +56,7 @@ $generic-bg: #db4c3f;
   -ms-flex-align: center;
   align-items: center;
 
-  @if $va-align != center {
+  @if $va-align !=center {
     -webkit-box-pack: left;
     -ms-flex-pack: left;
     justify-content: left;
@@ -81,7 +85,7 @@ $generic-bg: #db4c3f;
   font-weight: bold;
   font-size: 13px !important;
   line-height: 17px;
-  padding: 6px 12px 7px;
+  padding: 6px 12px 7px 12px;
   position: relative;
   display: inline-block;
   white-space: nowrap;
@@ -129,6 +133,8 @@ $generic-bg: #db4c3f;
   }
 }
 
+/* Darkmode
+     ============================================ */
 .darkmode {
   header {
     -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
@@ -138,6 +144,8 @@ $generic-bg: #db4c3f;
   }
 }
 
+/* Header
+     ============================================ */
 header {
   border-bottom: solid 1px #ca2100;
   background-color: $generic-bg;
@@ -162,8 +170,8 @@ header {
     align-items: center;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 0;
-    grid-row-gap: 0;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
     max-width: 922px;
     margin: auto;
     height: 44px;
@@ -239,6 +247,8 @@ header {
   }
 }
 
+/* Sidebar
+     ============================================ */
 .sidebar {
   @include no-select();
   width: 266px;
@@ -298,21 +308,25 @@ header {
         color: #6accbc;
       }
     }
+
     &:nth-child(2) {
       .sidebar__dot {
         color: #fad003;
       }
     }
+
     &:nth-child(3) {
       .sidebar__dot {
         color: #ff8d85;
       }
     }
+
     &:nth-child(4) {
       .sidebar__dot {
         color: #ff9932;
       }
     }
+
     &:nth-child(5) {
       .sidebar__dot {
         color: #af38eb;
@@ -408,6 +422,8 @@ header {
   }
 }
 
+/* Show Confirm Delete
+     ============================================ */
 .project-delete-modal {
   position: relative;
 
@@ -431,6 +447,7 @@ header {
     button {
       @include btn("50px");
     }
+
     span {
       @include cancel();
       font-weight: normal;
@@ -438,6 +455,8 @@ header {
   }
 }
 
+/* Main Content
+     ============================================ */
 .content {
   display: grid;
   -webkit-box-align: center;
@@ -448,6 +467,8 @@ header {
   margin: auto;
 }
 
+/* Tasks
+     ============================================ */
 .tasks {
   width: 656px;
   background-color: white;
@@ -514,6 +535,8 @@ header {
   }
 }
 
+/* Add Task
+     ============================================ */
 .add-task {
   &__overlay {
     background: rgba(102, 102, 102, 0.5);
@@ -623,6 +646,8 @@ header {
   margin-left: 15px;
 }
 
+/* Task Date
+     ============================================ */
 .task-date {
   @include box-overlay();
   background-color: #fff;
@@ -654,6 +679,8 @@ header {
   }
 }
 
+/* Project Overlay
+     ============================================ */
 .project-overlay {
   @include box-overlay();
   background-color: white;
@@ -674,6 +701,8 @@ header {
   }
 }
 
+/* Add Project
+     ============================================ */
 .add-project {
   padding-left: 13px;
   padding-right: 20px;

@@ -1,6 +1,6 @@
 import React from "react";
-import { firebase } from "firebase";
 import PropTypes from "prop-types";
+import { firebase } from "../firebase";
 
 export const Checkbox = ({ id }) => {
   const archiveTask = () => {

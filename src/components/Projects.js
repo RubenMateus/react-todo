@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useSelectedProjectValue, useProjectsValue } from "../context";
+import { Project } from "./Project";
 
 export const Projects = ({ activeValue = null }) => {
   const [active, setActive] = useState(activeValue);
@@ -11,25 +13,37 @@ export const Projects = ({ activeValue = null }) => {
     projects.map((project) => (
       <li
         key={project.projectId}
+        data-testid="project-action-parent"
         data-doc-id={project.docId}
-        data-testid="project-action"
-        role="menuitem"
         className={
           active === project.projectId
             ? "active sidebar__project"
             : "sidebar__project"
         }
-        onClick={() => {
-          setActive(project.projectId);
-          setSelectedProject(project.projectId);
-        }}
-        onKeyDown={() => {
-          setActive(project.projectId);
-          setSelectedProject(project.projectId);
-        }}
       >
-        {JSON.stringify(project)}
+        <div
+          role="button"
+          data-testid="project-action"
+          tabIndex={0}
+          aria-label={`Select ${project.name} as the task project`}
+          onClick={() => {
+            setActive(project.projectId);
+            setSelectedProject(project.projectId);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setActive(project.projectId);
+              setSelectedProject(project.projectId);
+            }
+          }}
+        >
+          <Project project={project} />
+        </div>
       </li>
     ))
   );
+};
+
+Projects.propTypes = {
+  activeValue: PropTypes.bool,
 };
