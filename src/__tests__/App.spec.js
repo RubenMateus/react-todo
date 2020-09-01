@@ -4,6 +4,28 @@ import { App } from "../App";
 
 beforeEach(cleanup); // clean meeeeeeeeee!
 
+jest.mock("../firebase", () => ({
+  firebase: {
+    firestore: jest.fn(() => ({
+      collection: jest.fn(() => ({
+        add: jest.fn(() => Promise.resolve("Never mock firebase")),
+        where: jest.fn(() => ({
+          orderBy: jest.fn(() => ({
+            get: jest.fn(() =>
+              Promise.resolve({ docs: [], message: "Never mock firebase" })
+            ),
+          })),
+          where: jest.fn(() => ({
+            onSnapshot: jest.fn(() => () =>
+              Promise.resolve("Never mock firebase")
+            ),
+          })),
+        })),
+      })),
+    })),
+  },
+}));
+
 describe("<App />", () => {
   it("renders the application", () => {
     const { queryByTestId } = render(<App />);
