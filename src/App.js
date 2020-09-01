@@ -1,72 +1,31 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Todos from './Components/Todos'
-import Header from './Components/Layout/Header';
-import AddTodo from './Components/AddTodo';
-import About from './Components/Pages/About';
-import axios from 'axios';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { Header } from "./components/layout/Header";
+import { Content } from "./components/layout/Content";
+import { ProjectsProvider, SelectedProjectProvider } from "./context";
 
-class App extends Component {
-  state = {
-    todos : []
-  }
+export const App = ({ darkModeDefault }) => {
+  const [darkMode, setDarkMode] = useState(darkModeDefault);
 
-  markComplete = (id) => {
-    this.setState({ todos: this.state.todos.map(todo => {
-        if(todo.id === id) {
-          todo.completed = !todo.completed
-        }
-        return todo;
-      })
-    });
-  }
+  return (
+    <SelectedProjectProvider>
+      <ProjectsProvider>
+        <main
+          data-testid="application"
+          className={darkMode ? "darkmode" : undefined}
+        >
+          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Content />
+        </main>
+      </ProjectsProvider>
+    </SelectedProjectProvider>
+  );
+};
 
-  deleteTodo = (id) => {
-    axios
-    .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-    .then(res => this.setState({todos: [...this.state.todos.filter(todo =>
-      todo.id !== id)]
-    }));
-  }
+App.propTypes = {
+  darkModeDefault: PropTypes.bool,
+};
 
-  addTodo = (title) =>{
-    axios.post('https://jsonplaceholder.typicode.com/todos', {
-      title,
-      completed : false
-    })
-    .then(res => this.setState({todos: [...this.state.todos, res.data]}));
-  }
-
-  componentDidMount() {
-    axios
-      .get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-      .then(res => {
-        this.setState({todos: res.data});
-      });
-  }
-
-  render() {
-    return (
-      <Router>
-        <div className="App">
-          <div className="container">
-            <Header />
-            <Route exact path="/" render={props => (
-              <React.Fragment>
-                <AddTodo addTodo={this.addTodo} />
-                <Todos
-                  todos={this.state.todos}
-                  markComplete={this.markComplete}
-                  deleteTodo={this.deleteTodo}
-                />
-              </React.Fragment>
-            )}/>
-            <Route path="/about" component={About}/>
-          </div>
-        </div>
-      </Router>
-    );
-  }
-}
-
-export default App;
+App.defaultProps = {
+  darkModeDefault: false,
+};
