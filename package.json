@@ -3,7 +3,7 @@
   "version": "0.2.2",
   "private": true,
   "dependencies": {
-    "@testing-library/react": "^10.4.9",
+    "@testing-library/react": "^11.0.0",
     "axios": "^0.20.0",
     "firebase": "^7.19.1",
     "moment": "^2.27.0",
