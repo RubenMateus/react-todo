@@ -5,7 +5,7 @@
   "dependencies": {
     "@testing-library/react": "^10.4.9",
     "axios": "^0.20.0",
-    "firebase": "^7.19.1",
+    "firebase": "^7.20.0",
     "moment": "^2.27.0",
     "node-sass": "^4.14.1",
     "prop-types": "15.7.2",
