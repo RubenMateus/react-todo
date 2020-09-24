@@ -15,7 +15,7 @@ export const Sidebar = () => {
   const [showProjects, setShowProjects] = useState(true);
 
   return (
-    <div className="sidebar" data-testid="sidebar">
+    <div className="sidebara" data-testid="sidebar">
       <ul className="sidebar__generic">
         <li
           data-testid="inbox"

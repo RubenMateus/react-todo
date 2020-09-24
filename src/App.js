@@ -1,31 +1,23 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React from "react";
+import { ThemeProvider, CSSReset, ColorModeProvider } from "@chakra-ui/core";
 import { Header } from "./components/layout/Header";
 import { Content } from "./components/layout/Content";
 import { ProjectsProvider, SelectedProjectProvider } from "./context";
 
-export const App = ({ darkModeDefault }) => {
-  const [darkMode, setDarkMode] = useState(darkModeDefault);
-
+export const App = () => {
   return (
-    <SelectedProjectProvider>
-      <ProjectsProvider>
-        <main
-          data-testid="application"
-          className={darkMode ? "darkmode" : undefined}
-        >
-          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-          <Content />
-        </main>
-      </ProjectsProvider>
-    </SelectedProjectProvider>
+    <ThemeProvider>
+      <CSSReset />
+      <ColorModeProvider>
+        <SelectedProjectProvider>
+          <ProjectsProvider>
+            <main data-testid="application">
+              <Header />
+              <Content />
+            </main>
+          </ProjectsProvider>
+        </SelectedProjectProvider>
+      </ColorModeProvider>
+    </ThemeProvider>
   );
-};
-
-App.propTypes = {
-  darkModeDefault: PropTypes.bool,
-};
-
-App.defaultProps = {
-  darkModeDefault: false,
 };

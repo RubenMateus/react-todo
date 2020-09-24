@@ -1,18 +1,52 @@
 import React, { useState } from "react";
 import { FaPizzaSlice } from "react-icons/fa";
-import PropTypes from "prop-types";
+import {
+  Flex,
+  Image,
+  Grid,
+  Box,
+  IconButton,
+  useColorMode,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  Button,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@chakra-ui/core";
 import { AddTask } from "../AddTask";
 
-export const Header = ({ darkMode, setDarkMode }) => {
+export const Header = () => {
   const [shouldShowMain, setShouldShowMain] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
-    <header className="header" data-testid="header">
-      <nav>
-        <div className="logo">
-          <img src="/images/logo.png" alt="Todoist" />
-        </div>
+    <Box
+      position="fixed"
+      bg="teal.500"
+      h="3rem"
+      w="100%"
+      as="header"
+      data-testid="header"
+    >
+      <Flex
+        as="nav"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        bg="teal.500"
+        color="white"
+        h="100%"
+      >
+        <Flex mr={5}>
+          <Image size="35px" src="/images/logo.png" alt="Todo it" />
+        </Flex>
         <div className="settings">
           <ul>
             <li className="settings__add">
@@ -33,14 +67,21 @@ export const Header = ({ darkMode, setDarkMode }) => {
                 data-testid="dark-mode-action"
                 aria-label="Darkmode on/off"
                 type="button"
-                onClick={() => setDarkMode(!darkMode)}
+                onClick={toggleColorMode}
               >
                 <FaPizzaSlice />
               </button>
             </li>
           </ul>
         </div>
-      </nav>
+        <Grid autoFlow gridAutoColumns templateColumns="repeat(2, 1fr)" gap={6}>
+          <IconButton aria-label="Add Task" icon="add" onClick={onOpen} />
+          <IconButton
+            icon={colorMode === "light" ? "moon" : "sun"}
+            onClick={toggleColorMode}
+          />
+        </Grid>
+      </Flex>
 
       <AddTask
         showAddTaskMain={false}
@@ -48,11 +89,20 @@ export const Header = ({ darkMode, setDarkMode }) => {
         showQuickAddTask={showQuickAddTask}
         setShowQuickAddTask={setShowQuickAddTask}
       />
-    </header>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>TESTE</ModalBody>
+          <ModalFooter>
+            <Button variantColor="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </Box>
   );
-};
-
-Header.propTypes = {
-  darkMode: PropTypes.bool.isRequired,
-  setDarkMode: PropTypes.func.isRequired,
 };
