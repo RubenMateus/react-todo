@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
-import { Checkbox } from "./Checkbox";
+import { Box, Text, List, ListItem, Checkbox } from "@chakra-ui/core";
 import { AddTask } from "./AddTask";
 import { useTasks } from "../hooks";
 import { collatedTasks } from "../constants";
 import { getTitle, getCollatedTitle, collatedTasksExist } from "../helpers";
 import { useSelectedProjectValue, useProjectsValue } from "../context";
+import { firebase } from "../firebase";
 
 export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue();
   const { projects } = useProjectsValue();
-  const { tasks } = useTasks(selectedProject);
+  let { tasks } = useTasks(selectedProject);
 
   let projectName = "";
 
@@ -30,20 +31,47 @@ export const Tasks = () => {
     document.title = `${projectName}: Todos`;
   });
 
-  return (
-    <div className="tasks" data-testid="tasks">
-      <h2 data-testid="project-name">{projectName}</h2>
+  const archiveTask = (id) => {
+    firebase.firestore().collection("tasks").doc(id).update({
+      archived: true,
+    });
+  };
 
-      <ul className="tasks__list">
+  tasks = tasks.concat({ id: "1123", task: "teste", archived: true });
+
+  return (
+    <Box
+      w={750}
+      p={8}
+      pt={6}
+      minHeight="94.5vh"
+      data-testid="tasks"
+      borderRight="1px"
+      borderRightColor="gray.200"
+    >
+      <Text fontSize="2xl" fontWeight="bold" data-testid="project-name">
+        {projectName}
+      </Text>
+      <List pt={4} pb={4} spacing={3}>
         {tasks.map((task) => (
-          <li key={`${task.id}`}>
-            <Checkbox id={task.id} taskDesc={task.task} />
-            <span>{task.task}</span>
-          </li>
+          <ListItem key={`${task.id}`}>
+            <Checkbox
+              size="lg"
+              variantColor="teal"
+              aria-label={`Mark ${task} as done?`}
+              data-testid="checkbox-action"
+              onClick={() => archiveTask(task.id)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") archiveTask();
+              }}
+            >
+              <Text>{task.task}</Text>
+            </Checkbox>
+          </ListItem>
         ))}
-      </ul>
+      </List>
 
       <AddTask />
-    </div>
+    </Box>
   );
 };

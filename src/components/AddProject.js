@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
+import { Flex, Icon, Text, Input, Box, Button } from "@chakra-ui/core";
 import { firebase } from "../firebase";
-
 import { useProjectsValue } from "../context";
 
 export const AddProject = ({ shouldShow = false }) => {
@@ -28,54 +28,62 @@ export const AddProject = ({ shouldShow = false }) => {
       });
 
   return (
-    <div className="add-project" data-testid="add-project">
+    <div data-testid="add-project">
       {show && (
-        <div className="add-project__input" data-testid="add-project-inner">
-          <input
-            value={projectName}
-            onChange={(e) => setProjectName(e.target.value)}
-            className="add-project__name"
+        <Box
+          w="95%"
+          className="add-project__input"
+          data-testid="add-project-inner"
+        >
+          <Input
+            focusBorderColor="teal.400"
             data-testid="project-name"
-            type="text"
+            onChange={(e) => setProjectName(e.target.value)}
+            value={projectName}
             placeholder="Name your project"
+            variant="flushed"
           />
-          <button
-            className="add-project__submit"
-            type="button"
-            onClick={() => addProject()}
-            data-testid="add-project-submit"
-          >
-            Add Project
-          </button>
-          <span
-            aria-label="Cancel adding project"
-            data-testid="hide-project-overlay"
-            className="add-project__cancel"
-            onClick={() => setShow(false)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") setShow(false);
-            }}
-            role="button"
-            tabIndex={0}
-          >
-            Cancel
-          </span>
-        </div>
+          <Flex mt={4}>
+            <Button
+              variantColor="teal"
+              onClick={() => addProject()}
+              data-testid="add-project-submit"
+              size="md"
+            >
+              Add Project
+            </Button>
+            <Button
+              aria-label="Cancel adding project"
+              data-testid="hide-project-overlay"
+              variant="ghost"
+              variantColor="teal"
+              color="black"
+              onClick={() => setShow(false)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") setShow(false);
+              }}
+            >
+              Cancel
+            </Button>
+          </Flex>
+        </Box>
       )}
-      <span className="add-project__plus">+</span>
-      <span
-        aria-label="Add Project"
-        data-testid="add-project-action"
-        className="add-project__text"
-        onClick={() => setShow(!show)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") setShow(!show);
-        }}
-        role="button"
-        tabIndex={0}
-      >
-        Add Project
-      </span>
+      {!show && (
+        <Flex
+          data-testid="add-project-action"
+          align="center"
+          width="100%"
+          h={8}
+          m={1}
+          cursor="pointer"
+          aria-label="Add Project"
+          onClick={() => setShow(!show)}
+          onKeyDown={() => setShow(!show)}
+        >
+          <Icon name="small-add" color="teal.500" size="22px" />
+          <Text ml={2}>Add Project</Text>
+        </Flex>
+      )}
     </div>
   );
 };

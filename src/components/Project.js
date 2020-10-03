@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaDotCircle } from "react-icons/fa";
 import PropTypes from "prop-types";
+import { Box } from "@chakra-ui/core";
 import { useProjectsValue, useSelectedProjectValue } from "../context";
 import { firebase } from "../firebase";
 
@@ -24,6 +25,7 @@ export const Project = ({ project }) => {
   return (
     <>
       <span className="sidebar__dot">•</span>
+      <Box as={FaDotCircle} size="32px" color="green.400" />
       <span className="sidebar__project-name">{project.name}</span>
       <span
         className="sidebar__project-delete"

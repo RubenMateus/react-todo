@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaRegListAlt, FaRegCalendarAlt } from "react-icons/fa";
 import moment from "moment";
 import PropTypes from "prop-types";
+import { Flex, Icon, Text } from "@chakra-ui/core";
 import { firebase } from "../firebase";
 import { useSelectedProjectValue } from "../context";
 import { ProjectOverlay } from "./ProjectOverlay";
@@ -59,21 +60,22 @@ export const AddTask = ({
       className={showQuickAddTask ? "add-task add-task__overlay" : "add-task"}
       data-testid="add-task-comp"
     >
-      {showAddTaskMain && (
-        <div
-          className="add-task__shallow"
+      {showAddTaskMain && !showMain && (
+        <Flex
           data-testid="show-main-action"
+          align="center"
+          width="100%"
+          h={8}
+          cursor="pointer"
+          aria-label="Add Project"
           onClick={() => setShowMain(!showMain)}
           onKeyDown={(e) => {
             if (e.key === "Enter") setShowMain(!showMain);
           }}
-          tabIndex={0}
-          aria-label="Add task"
-          role="button"
         >
-          <span className="add-task__plus">+</span>
-          <span className="add-task__text">Add Task</span>
-        </div>
+          <Icon name="small-add" color="teal.500" size="22px" />
+          <Text ml={2}>Add Task</Text>
+        </Flex>
       )}
 
       {(showMain || showQuickAddTask) && (
