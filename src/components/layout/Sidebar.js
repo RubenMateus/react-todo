@@ -55,6 +55,7 @@ export const Sidebar = () => {
       <List spacing={5} ml={2}>
         {staticProjects.map((proj) => (
           <ListItem
+            key={proj.id}
             aria-label={proj.ariaLabel}
             data-testid={proj.id}
             fontWeight={active === proj.id ? "semibold" : ""}
@@ -71,28 +72,30 @@ export const Sidebar = () => {
             }}
             cursor="pointer"
           >
-            <ListIcon icon={proj.icon} />
+            <ListIcon as={proj.icon} />
             {proj.name}
           </ListItem>
         ))}
       </List>
-      <Flex
-        align="center"
-        aria-label="Show/hide projects"
-        ml={2}
-        mt={5}
-        h={25}
-        cursor="pointer"
-        onClick={() => setShowProjects(!showProjects)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") setShowProjects(!showProjects);
-        }}
-      >
-        {showProjects ? <FaChevronDown /> : <FaChevronRight />}
-        <Text ml={2} fontSize="md">
-          Projects
-        </Text>
-      </Flex>
+      <div>
+        <Flex
+          align="center"
+          aria-label="Show/hide projects"
+          mt={8}
+          ml={2}
+          width="100%"
+          cursor="pointer"
+          onClick={() => setShowProjects(!showProjects)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") setShowProjects(!showProjects);
+          }}
+        >
+          {showProjects ? <FaChevronDown /> : <FaChevronRight />}
+          <Text ml={2} fontSize="md">
+            Projects
+          </Text>
+        </Flex>
+      </div>
       {showProjects && <Divider />}
       {showProjects && <Projects />}
       {showProjects && <AddProject />}

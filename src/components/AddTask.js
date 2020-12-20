@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { FaRegListAlt, FaRegCalendarAlt } from "react-icons/fa";
 import moment from "moment";
 import PropTypes from "prop-types";
-import { Flex, Icon, Text } from "@chakra-ui/core";
+import { Flex, Text } from "@chakra-ui/core";
+import { SmallAddIcon } from "@chakra-ui/icons";
 import { firebase } from "../firebase";
 import { useSelectedProjectValue } from "../context";
 import { ProjectOverlay } from "./ProjectOverlay";
@@ -73,7 +74,7 @@ export const AddTask = ({
             if (e.key === "Enter") setShowMain(!showMain);
           }}
         >
-          <Icon name="small-add" color="teal.500" size="22px" />
+          <SmallAddIcon color="teal.500" boxSize={6} />
           <Text ml={2}>Add Task</Text>
         </Flex>
       )}

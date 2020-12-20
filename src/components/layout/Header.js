@@ -15,8 +15,8 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-  Tooltip,
 } from "@chakra-ui/core";
+import { AddIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { AddTask } from "../AddTask";
 
 export const Header = () => {
@@ -39,29 +39,20 @@ export const Header = () => {
         m="auto"
       >
         <Flex mr={5}>
-          <Image size="35px" src="/images/logo.png" alt="Todo it" />
+          <Image w={10} h={10} src="/images/logo.png" alt="Todo it" />
         </Flex>
         <Grid autoFlow gridAutoColumns templateColumns="repeat(2, 1fr)" gap={6}>
-          <Tooltip
-            hasArrow
-            label="Add task"
-            bg="black"
-            color="white"
-            placement="bottom"
-            h={15}
-          >
-            <IconButton
-              aria-label="Add Task"
-              icon="add"
-              onClick={() => {
-                setShowQuickAddTask(true);
-                setShouldShowMain(true);
-                onOpen();
-              }}
-            />
-          </Tooltip>
           <IconButton
-            icon={colorMode === "light" ? "moon" : "sun"}
+            aria-label="Add Task"
+            icon={<AddIcon />}
+            onClick={() => {
+              setShowQuickAddTask(true);
+              setShouldShowMain(true);
+              onOpen();
+            }}
+          />
+          <IconButton
+            icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             onClick={toggleColorMode}
           />
         </Grid>
@@ -80,7 +71,7 @@ export const Header = () => {
           <ModalCloseButton />
           <ModalBody>TESTE</ModalBody>
           <ModalFooter>
-            <Button variantColor="blue" mr={3} onClick={onClose}>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
             <Button variant="ghost">Secondary Action</Button>

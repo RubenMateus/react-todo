@@ -57,7 +57,7 @@ export const Tasks = () => {
           <ListItem key={`${task.id}`}>
             <Checkbox
               size="lg"
-              variantColor="teal"
+              colorScheme="teal"
               aria-label={`Mark ${task} as done?`}
               data-testid="checkbox-action"
               onClick={() => archiveTask(task.id)}
