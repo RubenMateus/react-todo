@@ -11,17 +11,15 @@ const config = {
 
 const customTheme = extendTheme({ config });
 
-export const App = () => {
-  return (
-    <ChakraProvider theme={customTheme}>
-      <SelectedProjectProvider>
-        <ProjectsProvider>
-          <main data-testid="application">
-            <Header />
-            <Content />
-          </main>
-        </ProjectsProvider>
-      </SelectedProjectProvider>
-    </ChakraProvider>
-  );
-};
+export const App = () => (
+  <ChakraProvider theme={customTheme}>
+    <SelectedProjectProvider>
+      <ProjectsProvider>
+        <main data-testid="application">
+          <Header />
+          <Content />
+        </main>
+      </ProjectsProvider>
+    </SelectedProjectProvider>
+  </ChakraProvider>
+);
