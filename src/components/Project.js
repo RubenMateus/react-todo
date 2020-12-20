@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaTrashAlt, FaDotCircle } from "react-icons/fa";
 import PropTypes from "prop-types";
-import { Box } from "@chakra-ui/core";
+import { Box } from "@chakra-ui/react";
 import { useProjectsValue, useSelectedProjectValue } from "../context";
 import { firebase } from "../firebase";
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
-import { Flex, Text, Input, Box, Button } from "@chakra-ui/core";
+import { Flex, Text, Input, Box, Button } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
 import { firebase } from "../firebase";
 import { useProjectsValue } from "../context";
@@ -49,7 +49,6 @@ export const AddProject = ({ shouldShow = false }) => {
               colorScheme="teal"
               onClick={() => addProject()}
               data-testid="add-project-submit"
-              size="md"
             >
               Add Project
             </Button>
@@ -58,7 +57,6 @@ export const AddProject = ({ shouldShow = false }) => {
               data-testid="hide-project-overlay"
               variant="ghost"
               colorScheme="teal"
-              color="black"
               onClick={() => setShow(false)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") setShow(false);

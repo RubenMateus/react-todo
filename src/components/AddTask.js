@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaRegListAlt, FaRegCalendarAlt } from "react-icons/fa";
 import moment from "moment";
 import PropTypes from "prop-types";
-import { Flex, Text } from "@chakra-ui/core";
+import { Flex, Text } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
 import { firebase } from "../firebase";
 import { useSelectedProjectValue } from "../context";

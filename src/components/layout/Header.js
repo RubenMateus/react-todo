@@ -15,7 +15,7 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { AddIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { AddTask } from "../AddTask";
 

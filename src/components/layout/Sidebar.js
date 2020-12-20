@@ -14,7 +14,7 @@ import {
   Flex,
   Text,
   Divider,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { Projects } from "../Projects";
 import { useSelectedProjectValue } from "../../context";
 import { AddProject } from "../AddProject";

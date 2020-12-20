@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Text, List, ListItem, Checkbox } from "@chakra-ui/core";
+import { Box, Text, List, ListItem, Checkbox } from "@chakra-ui/react";
 import { AddTask } from "./AddTask";
 import { useTasks } from "../hooks";
 import { collatedTasks } from "../constants";
@@ -56,7 +56,6 @@ export const Tasks = () => {
         {tasks.map((task) => (
           <ListItem key={`${task.id}`}>
             <Checkbox
-              size="lg"
               colorScheme="teal"
               aria-label={`Mark ${task} as done?`}
               data-testid="checkbox-action"
