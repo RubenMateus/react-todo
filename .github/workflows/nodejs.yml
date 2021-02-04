@@ -26,10 +26,10 @@ jobs:
     - run: yarn test
 
     - name: Codecov
-      uses: codecov/codecov-action@v1.1.0
+      uses: codecov/codecov-action@v1.2.1
 
     - name: Code Climate Coverage Action
-      uses: paambaati/codeclimate-action@v2.7.3
+      uses: paambaati/codeclimate-action@v2.7.5
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TOKEN }}
       with:
