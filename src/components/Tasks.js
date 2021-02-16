@@ -10,6 +10,10 @@ import { firebase } from "../firebase";
 export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue();
   const { projects } = useProjectsValue();
+
+  console.log(selectedProject);
+  console.log(projects);
+
   let { tasks } = useTasks(selectedProject);
 
   let projectName = "";
@@ -56,6 +60,7 @@ export const Tasks = () => {
         {tasks.map((task) => (
           <ListItem key={`${task.id}`}>
             <Checkbox
+              isChecked={task.archived}
               colorScheme="teal"
               aria-label={`Mark ${task} as done?`}
               data-testid="checkbox-action"
@@ -64,7 +69,11 @@ export const Tasks = () => {
                 if (e.key === "Enter") archiveTask();
               }}
             >
-              <Text>{task.task}</Text>
+              {task.archived ? (
+                <Text>{task.task}</Text>
+              ) : (
+                <Text as="s">{task.task}</Text>
+              )}
             </Checkbox>
           </ListItem>
         ))}

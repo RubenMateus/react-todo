@@ -6,7 +6,13 @@ import { Project } from "./Project";
 export const Projects = ({ activeValue = null }) => {
   const [active, setActive] = useState(activeValue);
   const { setSelectedProject } = useSelectedProjectValue();
-  const { projects } = useProjectsValue();
+  let { projects } = useProjectsValue();
+
+  projects = projects.concat({
+    name: "test project",
+    userId: "ruben",
+    projectId: "1",
+  });
 
   return (
     projects &&

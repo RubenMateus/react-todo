@@ -6,7 +6,6 @@ import { ProjectsProvider, SelectedProjectProvider } from "./context";
 
 const config = {
   useSystemColorMode: true,
-  initialColorMode: "light",
 };
 
 const customTheme = extendTheme({ config });
