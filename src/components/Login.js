@@ -1,11 +1,15 @@
 import React from "react";
 import { useFirebase } from "react-redux-firebase";
+import { useHistory } from "react-router-dom";
 
 export const Login = () => {
   const firebase = useFirebase();
+  const history = useHistory();
 
-  function loginWithGoogle() {
-    return firebase.login({ provider: "google", type: "popup" });
+  async function loginWithGoogle() {
+    await firebase.login({ provider: "google", type: "popup" });
+
+    history.push("/");
   }
 
   return (

@@ -12,7 +12,9 @@ export const Projects = ({ activeValue = null }) => {
 
   useFirestoreConnect([{ collection: "projects" }]);
 
-  const projects = useSelector((state) => state.firestore.ordered.projects);
+  const projects =
+    useSelector((state) => state.firestore.ordered.projects) || [];
+
   console.log(projects);
 
   const status = useSelector((state) => state);
