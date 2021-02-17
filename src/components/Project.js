@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { FaTrashAlt, FaDotCircle } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { Box } from "@chakra-ui/react";
 import { useProjectsValue, useSelectedProjectValue } from "../context";
-import { firebase } from "../firebase";
+// import { firebase } from "../firebase";
 
 export const Project = ({ project }) => {
   const [showConfirm, setShowConfirm] = useState(false);
@@ -11,15 +12,15 @@ export const Project = ({ project }) => {
   const { setSelectedProject } = useSelectedProjectValue();
 
   const deleteProject = (docId) => {
-    firebase
-      .firestore()
-      .collection("projects")
-      .doc(docId)
-      .delete()
-      .then(() => {
-        setProjects([...projects]);
-        setSelectedProject("INBOX");
-      });
+    // firebase
+    //   .firestore()
+    //   .collection("projects")
+    //   .doc(docId)
+    //   .delete()
+    //   .then(() => {
+    //     setProjects([...projects]);
+    //     setSelectedProject("INBOX");
+    //   });
   };
 
   return (

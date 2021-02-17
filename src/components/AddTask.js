@@ -1,10 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { FaRegListAlt, FaRegCalendarAlt } from "react-icons/fa";
 import moment from "moment";
 import PropTypes from "prop-types";
 import { Flex, Text } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
-import { firebase } from "../firebase";
 import { useSelectedProjectValue } from "../context";
 import { ProjectOverlay } from "./ProjectOverlay";
 import { TaskDate } from "./TaskDate";
@@ -34,26 +34,26 @@ export const AddTask = ({
       collatedDate = moment().add(7, "days").format("DD/MM/YYYY");
     }
 
-    return (
-      task &&
-      projectId &&
-      firebase
-        .firestore()
-        .collection("tasks")
-        .add({
-          archived: false,
-          projectId,
-          task,
-          date: collatedDate || taskDate,
-          userId: "ruben",
-        })
-        .then(() => {
-          setTask("");
-          setProject("");
-          setShowMain("");
-          setShowProjectOverlay(false);
-        })
-    );
+    // return (
+    //   task &&
+    //   projectId &&
+    //   firebase
+    //     .firestore()
+    //     .collection("tasks")
+    //     .add({
+    //       archived: false,
+    //       projectId,
+    //       task,
+    //       date: collatedDate || taskDate,
+    //       userId: "ruben",
+    //     })
+    //     .then(() => {
+    //       setTask("");
+    //       setProject("");
+    //       setShowMain("");
+    //       setShowProjectOverlay(false);
+    //     })
+    // );
   };
 
   return (

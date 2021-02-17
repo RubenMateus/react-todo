@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { Box, Text, List, ListItem, Checkbox } from "@chakra-ui/react";
 import { AddTask } from "./AddTask";
@@ -5,7 +6,6 @@ import { useTasks } from "../hooks";
 import { collatedTasks } from "../constants";
 import { getTitle, getCollatedTitle, collatedTasksExist } from "../helpers";
 import { useSelectedProjectValue, useProjectsValue } from "../context";
-import { firebase } from "../firebase";
 
 export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue();
@@ -36,9 +36,9 @@ export const Tasks = () => {
   });
 
   const archiveTask = (id) => {
-    firebase.firestore().collection("tasks").doc(id).update({
-      archived: true,
-    });
+    // firebase.firestore().collection("tasks").doc(id).update({
+    //   archived: true,
+    // });
   };
 
   tasks = tasks.concat({ id: "1123", task: "teste", archived: true });
