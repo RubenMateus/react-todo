@@ -17,7 +17,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { AddIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-// import { useSelector } from "react-redux";
 import { AddTask } from "../AddTask";
 
 export const Header = () => {
