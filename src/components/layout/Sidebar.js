@@ -1,20 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import {
-  FaChevronDown,
-  FaChevronRight,
-  FaInbox,
-  FaRegCalendarAlt,
-  FaRegCalendar,
-} from "react-icons/fa";
+import { FaInbox, FaRegCalendarAlt, FaRegCalendar } from "react-icons/fa";
 import {
   Stack,
   List,
   ListItem,
   ListIcon,
-  Flex,
-  Text,
-  Divider,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -85,25 +76,6 @@ export const Sidebar = () => {
           </ListItem>
         ))}
       </List>
-      {/* <div>
-        <Flex
-          align="center"
-          aria-label="Show/hide projects"
-          mt={8}
-          ml={2}
-          width="100%"
-          cursor="pointer"
-          onClick={() => setShowProjects(!showProjects)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") setShowProjects(!showProjects);
-          }}
-        >
-          {showProjects ? <FaChevronDown /> : <FaChevronRight />}
-          <Text ml={2} fontSize="md">
-            Projects
-          </Text>
-        </Flex>
-      </div> */}
       <Accordion pr="1" allowToggle>
         <AccordionItem>
           <h2>
@@ -120,10 +92,6 @@ export const Sidebar = () => {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-
-      {/* {showProjects && <Divider />} */}
-      {/* {showProjects && <Projects />}
-      {showProjects && <AddProject />} */}
     </Stack>
   );
 };

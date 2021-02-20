@@ -2,34 +2,30 @@
 import React, { useEffect } from "react";
 import { Box, Text, List, ListItem, Checkbox } from "@chakra-ui/react";
 import { AddTask } from "./AddTask";
-import { useTasks } from "../hooks";
+
 import { collatedTasks } from "../constants";
 import { getTitle, getCollatedTitle, collatedTasksExist } from "../helpers";
-import { useSelectedProjectValue, useProjectsValue } from "../context";
+import { useSelectedProjectValue } from "../context";
 
 export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue();
-  const { projects } = useProjectsValue();
 
   console.log(selectedProject);
-  console.log(projects);
 
-  let { tasks } = useTasks(selectedProject);
+  const projectName = "";
 
-  let projectName = "";
+  // if (collatedTasksExist(selectedProject) && selectedProject) {
+  //   projectName = getCollatedTitle(collatedTasks, selectedProject)?.name;
+  // }
 
-  if (collatedTasksExist(selectedProject) && selectedProject) {
-    projectName = getCollatedTitle(collatedTasks, selectedProject)?.name;
-  }
-
-  if (
-    projects &&
-    projects.length > 0 &&
-    selectedProject &&
-    !collatedTasksExist(selectedProject)
-  ) {
-    projectName = getTitle(projects, selectedProject)?.name;
-  }
+  // if (
+  //   projects &&
+  //   projects.length > 0 &&
+  //   selectedProject &&
+  //   !collatedTasksExist(selectedProject)
+  // ) {
+  //   projectName = getTitle([], selectedProject)?.name;
+  // }
 
   useEffect(() => {
     document.title = `${projectName}: Todos`;
@@ -40,8 +36,6 @@ export const Tasks = () => {
     //   archived: true,
     // });
   };
-
-  tasks = tasks.concat({ id: "1123", task: "teste", archived: true });
 
   return (
     <Box
@@ -57,7 +51,7 @@ export const Tasks = () => {
         {projectName}
       </Text>
       <List pt={4} pb={4} spacing={3}>
-        {tasks.map((task) => (
+        {[].map((task) => (
           <ListItem key={`${task.id}`}>
             <Checkbox
               isChecked={task.archived}

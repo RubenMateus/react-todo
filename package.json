@@ -43,7 +43,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --no-cache --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext js,ts,tsx src --fix"
+    "lint": "eslint --ext .js,.jsx src --color"
   },
   "browserslist": {
     "production": [
@@ -55,12 +55,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md,less}": [
-      "prettier --write",
-      "git add"
     ]
   }
 }

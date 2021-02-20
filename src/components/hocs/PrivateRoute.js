@@ -14,8 +14,6 @@ export const PrivateRoute = ({ children, path }) => {
         isLoaded(auth) && !isEmpty(auth) ? (
           children
         ) : (
-
-          
           <Redirect
             to={{
               pathname: "/login",

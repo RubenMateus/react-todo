@@ -7,7 +7,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Header } from "./components/layout/Header";
 import { Content } from "./components/layout/Content";
 import { PrivateRoute } from "./components/hocs/PrivateRoute";
-import { ProjectsProvider, SelectedProjectProvider } from "./context";
+import { SelectedProjectProvider } from "./context";
 import { store, reduxFirebaseProps } from "./redux/store";
 import { Login } from "./components/Login";
 
@@ -30,12 +30,10 @@ export const App = () => (
               </Route>
               <PrivateRoute path="/">
                 <SelectedProjectProvider>
-                  <ProjectsProvider>
-                    <main data-testid="application">
-                      <Header />
-                      <Content />
-                    </main>
-                  </ProjectsProvider>
+                  <main data-testid="application">
+                    <Header />
+                    <Content />
+                  </main>
                 </SelectedProjectProvider>
               </PrivateRoute>
             </Switch>
