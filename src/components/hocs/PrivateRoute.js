@@ -1,17 +1,15 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { isLoaded, isEmpty } from "react-redux-firebase";
 import PropTypes from "prop-types";
 
-export const PrivateRoute = ({ children, ...rest }) => {
+export const PrivateRoute = ({ children, path }) => {
   const auth = useSelector((state) => state.firebase.auth);
-  console.log(auth);
 
   return (
     <Route
-      {...rest}
+      path={path}
       render={({ location }) =>
         isLoaded(auth) && !isEmpty(auth) ? (
           children
@@ -30,4 +28,5 @@ export const PrivateRoute = ({ children, ...rest }) => {
 
 PrivateRoute.propTypes = {
   children: PropTypes.node.isRequired,
+  path: PropTypes.string.isRequired,
 };

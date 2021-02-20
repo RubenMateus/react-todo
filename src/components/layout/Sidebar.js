@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import {
   FaChevronDown,
@@ -14,6 +15,12 @@ import {
   Flex,
   Text,
   Divider,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
 } from "@chakra-ui/react";
 import { Projects } from "../Projects";
 import { useSelectedProjectValue } from "../../context";
@@ -51,6 +58,7 @@ export const Sidebar = () => {
       borderRight="1px"
       borderRightColor="gray.200"
       pt={8}
+      spacing={6}
     >
       <List spacing={5} ml={2}>
         {staticProjects.map((proj) => (
@@ -77,7 +85,7 @@ export const Sidebar = () => {
           </ListItem>
         ))}
       </List>
-      <div>
+      {/* <div>
         <Flex
           align="center"
           aria-label="Show/hide projects"
@@ -95,10 +103,27 @@ export const Sidebar = () => {
             Projects
           </Text>
         </Flex>
-      </div>
-      {showProjects && <Divider />}
-      {showProjects && <Projects />}
-      {showProjects && <AddProject />}
+      </div> */}
+      <Accordion pr="1" allowToggle>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex="1" textAlign="left">
+                Projects
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <Projects />
+            <AddProject />
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+
+      {/* {showProjects && <Divider />} */}
+      {/* {showProjects && <Projects />}
+      {showProjects && <AddProject />} */}
     </Stack>
   );
 };

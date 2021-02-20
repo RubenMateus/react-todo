@@ -1,33 +1,32 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 import { Flex, Text, Input, Box, Button } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 import { SmallAddIcon } from "@chakra-ui/icons";
-// import { firebase } from "../firebase";
-import { useProjectsValue } from "../context";
+import { useFirestore } from "react-redux-firebase";
 
 export const AddProject = ({ shouldShow = false }) => {
   const [show, setShow] = useState(shouldShow);
   const [projectName, setProjectName] = useState("");
 
-  const { projects, setProjects } = useProjectsValue();
+  const firestore = useFirestore();
+  const auth = useSelector((state) => state.firebase.auth);
 
-  const addProject = () => {};
-  // projectName &&
-  // firebase
-  //   .firestore()
-  //   .collection("projects")
-  //   .add({
-  //     projectId: uuidv4(),
-  //     name: projectName,
-  //     userId: "ruben", // change this
-  //   })
-  //   .then(() => {
-  //     setProjects([...projects]);
-  //     setProjectName("");
-  //     setShow(false);
-  //   });
+  const addProject = () => {
+    const project = {
+      name: projectName,
+      userId: auth.uid,
+    };
+
+    firestore
+      .collection("projects")
+      .add(project)
+      .then(() => {
+        setProjectName("");
+        setShow(false);
+      });
+  };
 
   return (
     <div data-testid="add-project">

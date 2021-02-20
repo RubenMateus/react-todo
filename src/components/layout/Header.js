@@ -27,15 +27,6 @@ export const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
 
-  // const profile = useSelector((state) => state.firebase.profile);
-  // console.log(profile);
-
-  // const auth = useSelector((state) => state.firebase.auth);
-  // console.log(auth);
-
-  // const status = useSelector((state) => state);
-  // console.log(status);
-
   return (
     <Box as="header" bg="teal.500" h="3rem" w="100%" data-testid="header">
       <Flex

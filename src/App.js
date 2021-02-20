@@ -12,14 +12,14 @@ import { store, reduxFirebaseProps } from "./redux/store";
 import { Login } from "./components/Login";
 
 const config = {
-  useSystemColorMode: true,
+  useSystemColorMode: false,
 };
 
 const customTheme = extendTheme({ config });
 
 export const App = () => (
   <>
-    <ColorModeScript initialColorMode="system" />
+    <ColorModeScript initialColorMode="light" />
     <ChakraProvider theme={customTheme}>
       <Provider store={store}>
         <ReactReduxFirebaseProvider {...reduxFirebaseProps}>

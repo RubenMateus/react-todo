@@ -5,36 +5,31 @@ import { useFirestoreConnect } from "react-redux-firebase";
 import { useSelectedProjectValue } from "../context";
 import { Project } from "./Project";
 
-export const Projects = ({ activeValue = null }) => {
-  const [active, setActive] = useState(activeValue);
+export const Projects = () => {
+  const [active, setActive] = useState(true);
   const { setSelectedProject } = useSelectedProjectValue();
-  // let { projects } = useProjectsValue();
 
-  useFirestoreConnect([{ collection: "projects" }]);
+  const auth = useSelector((state) => state.firebase.auth);
+
+  useFirestoreConnect([
+    {
+      collection: "projects",
+      where: ["userId", "==", auth.uid],
+    },
+  ]);
 
   const projects =
     useSelector((state) => state.firestore.ordered.projects) || [];
 
   console.log(projects);
 
-  const status = useSelector((state) => state);
-  console.log(status);
-
-  // projects = projects.concat({
-  //   name: "test project",
-  //   userId: "ruben",
-  //   projectId: "1",
-  // });
-
   return projects?.map((project) => (
     <li
-      key={project.projectId}
+      key={project.id}
       data-testid="project-action-parent"
-      data-doc-id={project.docId}
+      data-doc-id={project.id}
       className={
-        active === project.projectId
-          ? "active sidebar__project"
-          : "sidebar__project"
+        active === project.id ? "active sidebar__project" : "sidebar__project"
       }
     >
       <div
@@ -43,13 +38,13 @@ export const Projects = ({ activeValue = null }) => {
         tabIndex={0}
         aria-label={`Select ${project.name} as the task project`}
         onClick={() => {
-          setActive(project.projectId);
-          setSelectedProject(project.projectId);
+          setActive(project.id);
+          setSelectedProject(project.id);
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            setActive(project.projectId);
-            setSelectedProject(project.projectId);
+            setActive(project.id);
+            setSelectedProject(project.id);
           }
         }}
       >
