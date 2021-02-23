@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { Flex, Text, Input, Box, Button } from "@chakra-ui/react";
+import { Flex, Input, Box, Button } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { SmallAddIcon } from "@chakra-ui/icons";
 import { useFirestore } from "react-redux-firebase";
 
-export const AddProject = ({ shouldShow = false }) => {
-  const [show, setShow] = useState(shouldShow);
+export const AddProject = () => {
+  const [show, setShow] = useState(false);
   const [projectName, setProjectName] = useState("");
 
   const firestore = useFirestore();
@@ -31,11 +29,7 @@ export const AddProject = ({ shouldShow = false }) => {
   return (
     <div data-testid="add-project">
       {show && (
-        <Box
-          w="95%"
-          className="add-project__input"
-          data-testid="add-project-inner"
-        >
+        <Box data-testid="add-project-inner">
           <Input
             focusBorderColor="teal.400"
             data-testid="project-name"
@@ -69,25 +63,20 @@ export const AddProject = ({ shouldShow = false }) => {
         </Box>
       )}
       {!show && (
-        <Flex
+        <Button
+          mt={6}
+          pl={2}
           data-testid="add-project-action"
-          align="center"
-          width="100%"
-          h={8}
-          m={1}
-          cursor="pointer"
-          aria-label="Add Project"
+          justifyContent="flex-start"
+          variant="ghost"
+          _focus={{ outline: "none" }}
+          rightIcon={<SmallAddIcon color="teal.500" boxSize={6} />}
           onClick={() => setShow(!show)}
           onKeyDown={() => setShow(!show)}
         >
-          <SmallAddIcon color="teal.500" boxSize={6} />
-          <Text ml={2}>Add Project</Text>
-        </Flex>
+          Add Project
+        </Button>
       )}
     </div>
   );
-};
-
-AddProject.propTypes = {
-  shouldShow: PropTypes.bool.isRequired,
 };

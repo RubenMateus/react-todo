@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import { FaInbox, FaRegCalendarAlt, FaRegCalendar } from "react-icons/fa";
+import React from "react";
 import {
   Stack,
   List,
@@ -12,36 +11,19 @@ import {
   AccordionPanel,
   AccordionIcon,
   Box,
+  Button,
 } from "@chakra-ui/react";
 import { Projects } from "../Projects";
 import { useSelectedProjectValue } from "../../context";
 import { AddProject } from "../AddProject";
+import { staticProjects } from "../../constants";
 
 export const Sidebar = () => {
-  const { setSelectedProject } = useSelectedProjectValue();
-  const [active, setActive] = useState("inbox");
-  const [showProjects, setShowProjects] = useState(true);
+  const { selectedProject, setSelectedProject } = useSelectedProjectValue();
 
-  const staticProjects = [
-    {
-      id: "inbox",
-      name: "Inbox",
-      ariaLabel: "Show inbox tasks",
-      icon: FaInbox,
-    },
-    {
-      id: "today",
-      name: "Today",
-      ariaLabel: "Show today's tasks",
-      icon: FaRegCalendar,
-    },
-    {
-      id: "next_7",
-      name: "Next 7 days",
-      ariaLabel: "Show tasks for the next 7 days",
-      icon: FaRegCalendarAlt,
-    },
-  ];
+  const selectProject = (id, e) => {
+    setSelectedProject(id);
+  };
 
   return (
     <Stack
@@ -51,42 +33,41 @@ export const Sidebar = () => {
       pt={8}
       spacing={6}
     >
-      <List spacing={5} ml={2}>
+      <List spacing={2} pr={2}>
         {staticProjects.map((proj) => (
           <ListItem
             key={proj.id}
             aria-label={proj.ariaLabel}
             data-testid={proj.id}
-            fontWeight={active === proj.id ? "semibold" : ""}
-            _hover={{ fontWeight: "semibold" }}
-            onClick={() => {
-              setActive(proj.id);
-              setSelectedProject(proj.id.toUpperCase());
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                setActive(proj.id);
-                setSelectedProject(proj.id.toUpperCase());
-              }
-            }}
+            onClick={(e) => selectProject(proj.id, e)}
+            onKeyDown={(e) => selectedProject(proj.id, e)}
             cursor="pointer"
           >
-            <ListIcon as={proj.icon} />
-            {proj.name}
+            <Button
+              pl={2}
+              isFullWidth
+              justifyContent="flex-start"
+              variant="ghost"
+              isActive={selectedProject === proj.id}
+              _focus={{ outline: "none" }}
+            >
+              <ListIcon as={proj.icon} />
+              {proj.name}
+            </Button>
           </ListItem>
         ))}
       </List>
-      <Accordion pr="1" allowToggle>
+      <Accordion allowToggle>
         <AccordionItem>
           <h2>
-            <AccordionButton>
+            <AccordionButton p={2}>
               <Box flex="1" textAlign="left">
                 Projects
               </Box>
               <AccordionIcon />
             </AccordionButton>
           </h2>
-          <AccordionPanel pb={4}>
+          <AccordionPanel pr={2} pb={1} pt={1} pl={1}>
             <Projects />
             <AddProject />
           </AccordionPanel>

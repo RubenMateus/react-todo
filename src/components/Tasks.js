@@ -1,40 +1,45 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { Box, Text, List, ListItem, Checkbox } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { useFirestoreConnect, useFirestore } from "react-redux-firebase";
 import { AddTask } from "./AddTask";
-
-import { collatedTasks } from "../constants";
-import { getTitle, getCollatedTitle, collatedTasksExist } from "../helpers";
 import { useSelectedProjectValue } from "../context";
+import { staticProjects } from "../constants";
 
 export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue();
+  const firestore = useFirestore();
 
-  console.log(selectedProject);
+  const auth = useSelector((state) => state.firebase.auth);
 
-  const projectName = "";
+  useFirestoreConnect([
+    {
+      collection: "tasks",
+      where: [
+        ["projectId", "==", selectedProject],
+        ["userId", "==", auth.uid],
+      ],
+      populates: [{ child: "project", root: "projects" }],
+    },
+  ]);
 
-  // if (collatedTasksExist(selectedProject) && selectedProject) {
-  //   projectName = getCollatedTitle(collatedTasks, selectedProject)?.name;
-  // }
+  const { projects = [], tasks = [] } = useSelector(
+    (state) => state.firestore.ordered
+  );
 
-  // if (
-  //   projects &&
-  //   projects.length > 0 &&
-  //   selectedProject &&
-  //   !collatedTasksExist(selectedProject)
-  // ) {
-  //   projectName = getTitle([], selectedProject)?.name;
-  // }
+  const projectName = projects
+    .concat(staticProjects)
+    .find((proj) => proj.id === selectedProject)?.name;
 
   useEffect(() => {
-    document.title = `${projectName}: Todos`;
+    document.title = `${projectName}: Tasks`;
   });
 
   const archiveTask = (id) => {
-    // firebase.firestore().collection("tasks").doc(id).update({
-    //   archived: true,
-    // });
+    firestore().collection("tasks").doc(id).update({
+      archived: true,
+    });
   };
 
   return (
@@ -51,7 +56,7 @@ export const Tasks = () => {
         {projectName}
       </Text>
       <List pt={4} pb={4} spacing={3}>
-        {[].map((task) => (
+        {tasks.map((task) => (
           <ListItem key={`${task.id}`}>
             <Checkbox
               isChecked={task.archived}
@@ -60,7 +65,7 @@ export const Tasks = () => {
               data-testid="checkbox-action"
               onClick={() => archiveTask(task.id)}
               onKeyDown={(e) => {
-                if (e.key === "Enter") archiveTask();
+                if (e.key === "Enter") archiveTask(task.id);
               }}
             >
               {task.archived ? (

@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
-import { useSelectedProjectValue } from "../context";
+import { Text } from "@chakra-ui/react";
 import { Project } from "./Project";
 
 export const Projects = () => {
-  const [active, setActive] = useState(true);
-  const { setSelectedProject } = useSelectedProjectValue();
-
   const auth = useSelector((state) => state.firebase.auth);
 
   useFirestoreConnect([
@@ -21,39 +17,15 @@ export const Projects = () => {
   const projects =
     useSelector((state) => state.firestore.ordered.projects) || [];
 
-  console.log(projects);
+  if (!projects.length) {
+    return (
+      <Text pb={8} color="gray" as="em">
+        You have no projects...
+      </Text>
+    );
+  }
 
-  return projects?.map((project) => (
-    <li
-      key={project.id}
-      data-testid="project-action-parent"
-      data-doc-id={project.id}
-      className={
-        active === project.id ? "active sidebar__project" : "sidebar__project"
-      }
-    >
-      <div
-        role="button"
-        data-testid="project-action"
-        tabIndex={0}
-        aria-label={`Select ${project.name} as the task project`}
-        onClick={() => {
-          setActive(project.id);
-          setSelectedProject(project.id);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            setActive(project.id);
-            setSelectedProject(project.id);
-          }
-        }}
-      >
-        <Project project={project} />
-      </div>
-    </li>
+  return projects.map((project) => (
+    <Project key={project.id} project={project} />
   ));
-};
-
-Projects.propTypes = {
-  activeValue: PropTypes.bool,
 };

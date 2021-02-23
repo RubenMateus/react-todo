@@ -28,9 +28,22 @@ jobs:
     - name: Codecov
       uses: codecov/codecov-action@v1.2.1
 
-    - name: Code Climate Coverage Action
-      uses: paambaati/codeclimate-action@v2.7.5
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TOKEN }}
+    - name: Run Codacy Analysis CLI
+      uses: codacy/codacy-analysis-cli-action@master
       with:
-        coverageCommand: yarn test
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        output: results.sarif
+        format: sarif_file
+        gh-code-scanning-compat: true
+        upload: true
+
+      # Upload the SARIF file generated in the previous step
+    - name: Upload SARIF results file
+      uses: github/codeql-action/upload-sarif@master
+      with:
+        sarif_file: results.sarif
+
+    - name: Run codacy-coverage-reporter
+      uses: codacy/codacy-coverage-reporter-action@master
+      with:
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}

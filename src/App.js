@@ -1,26 +1,18 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
-import { ChakraProvider, ColorModeScript, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Header } from "./components/layout/Header";
-import { Content } from "./components/layout/Content";
-import { PrivateRoute } from "./components/hocs/PrivateRoute";
-import { SelectedProjectProvider } from "./context";
 import { store, reduxFirebaseProps } from "./redux/store";
-import { Login } from "./components/Login";
-
-const config = {
-  useSystemColorMode: false,
-};
-
-const customTheme = extendTheme({ config });
+import { Login } from "./pages/Login";
+import { Application } from "./pages/Application";
+import theme from "./theme";
 
 export const App = () => (
   <>
     <ColorModeScript initialColorMode="light" />
-    <ChakraProvider theme={customTheme}>
+    <ChakraProvider theme={theme}>
       <Provider store={store}>
         <ReactReduxFirebaseProvider {...reduxFirebaseProps}>
           <BrowserRouter>
@@ -28,14 +20,7 @@ export const App = () => (
               <Route path="/login">
                 <Login />
               </Route>
-              <PrivateRoute path="/">
-                <SelectedProjectProvider>
-                  <main data-testid="application">
-                    <Header />
-                    <Content />
-                  </main>
-                </SelectedProjectProvider>
-              </PrivateRoute>
+              <Application />
             </Switch>
           </BrowserRouter>
         </ReactReduxFirebaseProvider>
