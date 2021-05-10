@@ -1,49 +1,31 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { useSelectedProjectValue, useProjectsValue } from "../context";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useFirestoreConnect } from "react-redux-firebase";
+import { Text } from "@chakra-ui/react";
 import { Project } from "./Project";
 
-export const Projects = ({ activeValue = null }) => {
-  const [active, setActive] = useState(activeValue);
-  const { setSelectedProject } = useSelectedProjectValue();
-  const { projects } = useProjectsValue();
+export const Projects = () => {
+  const auth = useSelector((state) => state.firebase.auth);
 
-  return (
-    projects &&
-    projects.map((project) => (
-      <li
-        key={project.projectId}
-        data-testid="project-action-parent"
-        data-doc-id={project.docId}
-        className={
-          active === project.projectId
-            ? "active sidebar__project"
-            : "sidebar__project"
-        }
-      >
-        <div
-          role="button"
-          data-testid="project-action"
-          tabIndex={0}
-          aria-label={`Select ${project.name} as the task project`}
-          onClick={() => {
-            setActive(project.projectId);
-            setSelectedProject(project.projectId);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              setActive(project.projectId);
-              setSelectedProject(project.projectId);
-            }
-          }}
-        >
-          <Project project={project} />
-        </div>
-      </li>
-    ))
-  );
-};
+  useFirestoreConnect([
+    {
+      collection: "projects",
+      where: ["userId", "==", auth.uid],
+    },
+  ]);
 
-Projects.propTypes = {
-  activeValue: PropTypes.bool,
+  const projects =
+    useSelector((state) => state.firestore.ordered.projects) || [];
+
+  if (!projects.length) {
+    return (
+      <Text pb={8} color="gray" as="em">
+        You have no projects...
+      </Text>
+    );
+  }
+
+  return projects.map((project) => (
+    <Project key={project.id} project={project} />
+  ));
 };

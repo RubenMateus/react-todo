@@ -1,122 +1,75 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React from "react";
 import {
-  FaChevronDown,
-  FaInbox,
-  FaRegCalendarAlt,
-  FaRegCalendar,
-} from "react-icons/fa";
+  Stack,
+  List,
+  ListItem,
+  ListIcon,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
+  Button,
+} from "@chakra-ui/react";
 import { Projects } from "../Projects";
 import { useSelectedProjectValue } from "../../context";
 import { AddProject } from "../AddProject";
+import { staticProjects } from "../../constants";
 
 export const Sidebar = () => {
-  const { setSelectedProject } = useSelectedProjectValue();
-  const [active, setActive] = useState("inbox");
-  const [showProjects, setShowProjects] = useState(true);
+  const { selectedProject, setSelectedProject } = useSelectedProjectValue();
 
   return (
-    <div className="sidebar" data-testid="sidebar">
-      <ul className="sidebar__generic">
-        <li
-          data-testid="inbox"
-          className={active === "inbox" ? "active" : undefined}
-        >
-          <div
-            data-testid="inbox-action"
-            aria-label="Show inbox tasks"
-            tabIndex={0}
-            role="button"
-            onClick={() => {
-              setActive("inbox");
-              setSelectedProject("INBOX");
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                setActive("inbox");
-                setSelectedProject("INBOX");
-              }
-            }}
+    <Stack
+      data-testid="sidebar"
+      borderRight="1px"
+      borderRightColor="gray.200"
+      pt={8}
+      height="100%"
+      spacing={6}
+    >
+      <List spacing={2} pr={2}>
+        {staticProjects.map((proj) => (
+          <ListItem
+            key={proj.id}
+            aria-label={proj.ariaLabel}
+            data-testid={proj.id}
+            onClick={() => setSelectedProject(proj.id)}
+            onKeyDown={() => setSelectedProject(proj.id)}
+            cursor="pointer"
           >
-            <span>
-              <FaInbox />
-            </span>
-            <span>Inbox</span>
-          </div>
-        </li>
-        <li
-          data-testid="today"
-          className={active === "today" ? "active" : undefined}
-        >
-          <div
-            data-testid="today-action"
-            aria-label="Show today's tasks"
-            tabIndex={0}
-            role="button"
-            onClick={() => {
-              setActive("today");
-              setSelectedProject("TODAY");
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                setActive("today");
-                setSelectedProject("TODAY");
-              }
-            }}
-          >
-            <span>
-              <FaRegCalendar />
-            </span>
-            <span>Today</span>
-          </div>
-        </li>
-        <li
-          data-testid="next_7"
-          className={active === "next_7" ? "active" : undefined}
-        >
-          <div
-            data-testid="next_7-action"
-            aria-label="Show tasks for the next 7 days"
-            tabIndex={0}
-            role="button"
-            onClick={() => {
-              setActive("next_7");
-              setSelectedProject("NEXT_7");
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                setActive("next_7");
-                setSelectedProject("NEXT_7");
-              }
-            }}
-          >
-            <span>
-              <FaRegCalendarAlt />
-            </span>
-            <span>Next 7 days</span>
-          </div>
-        </li>
-      </ul>
-      <div
-        className="sidebar__middle"
-        aria-label="Show/hide projects"
-        onClick={() => setShowProjects(!showProjects)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") setShowProjects(!showProjects);
-        }}
-        role="button"
-        tabIndex={0}
-      >
-        <span>
-          <FaChevronDown
-            className={!showProjects ? "hidden-projects" : undefined}
-          />
-        </span>
-        <h2>Projects</h2>
-      </div>
-
-      <ul className="sidebar__projects">{showProjects && <Projects />}</ul>
-
-      {showProjects && <AddProject />}
-    </div>
+            <Button
+              pl={2}
+              isFullWidth
+              justifyContent="flex-start"
+              variant="ghost"
+              isActive={selectedProject === proj.id}
+              _focus={{ outline: "none" }}
+            >
+              <ListIcon as={proj.icon} />
+              {proj.name}
+            </Button>
+          </ListItem>
+        ))}
+      </List>
+      <Accordion allowToggle>
+        <AccordionItem>
+          <h2>
+            <AccordionButton p={2}>
+              <Box flex="1" textAlign="left">
+                Projects
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pr={2} pb={1} pt={1} pl={1}>
+            <Projects />
+            <AddProject />
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+    </Stack>
   );
 };

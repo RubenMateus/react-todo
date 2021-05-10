@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 export const SelectedProjectContext = createContext();
 
 export const SelectedProjectProvider = ({ children }) => {
-  const [selectedProject, setSelectedProject] = useState("INBOX");
+  const [selectedProject, setSelectedProject] = useState("inbox");
 
   return (
     <SelectedProjectContext.Provider
@@ -16,7 +16,7 @@ export const SelectedProjectProvider = ({ children }) => {
 };
 
 SelectedProjectProvider.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export const useSelectedProjectValue = () => useContext(SelectedProjectContext);

@@ -1,85 +1,84 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
-import { firebase } from "../firebase";
+import { Flex, Input, Box, Button } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { SmallAddIcon } from "@chakra-ui/icons";
+import { useFirestore } from "react-redux-firebase";
 
-import { useProjectsValue } from "../context";
-
-export const AddProject = ({ shouldShow = false }) => {
-  const [show, setShow] = useState(shouldShow);
+export const AddProject = () => {
+  const [show, setShow] = useState(false);
   const [projectName, setProjectName] = useState("");
 
-  const { projects, setProjects } = useProjectsValue();
+  const firestore = useFirestore();
+  const auth = useSelector((state) => state.firebase.auth);
 
-  const addProject = () =>
-    projectName &&
-    firebase
-      .firestore()
+  const addProject = () => {
+    const project = {
+      name: projectName,
+      userId: auth.uid,
+    };
+
+    firestore
       .collection("projects")
-      .add({
-        projectId: uuidv4(),
-        name: projectName,
-        userId: "ruben", // change this
-      })
+      .add(project)
       .then(() => {
-        setProjects([...projects]);
         setProjectName("");
         setShow(false);
       });
+  };
 
   return (
-    <div className="add-project" data-testid="add-project">
+    <div data-testid="add-project">
       {show && (
-        <div className="add-project__input" data-testid="add-project-inner">
-          <input
-            value={projectName}
-            onChange={(e) => setProjectName(e.target.value)}
-            className="add-project__name"
+        <Box data-testid="add-project-inner">
+          <Input
+            mt={4}
+            focusBorderColor="teal.400"
             data-testid="project-name"
-            type="text"
+            onChange={(e) => setProjectName(e.target.value)}
+            value={projectName}
             placeholder="Name your project"
+            variant="flushed"
+            autoFocus
           />
-          <button
-            className="add-project__submit"
-            type="button"
-            onClick={() => addProject()}
-            data-testid="add-project-submit"
-          >
-            Add Project
-          </button>
-          <span
-            aria-label="Cancel adding project"
-            data-testid="hide-project-overlay"
-            className="add-project__cancel"
-            onClick={() => setShow(false)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") setShow(false);
-            }}
-            role="button"
-            tabIndex={0}
-          >
-            Cancel
-          </span>
-        </div>
+          <Flex mt={4} mb={4}>
+            <Button
+              mr={4}
+              colorScheme="teal"
+              onClick={() => addProject()}
+              data-testid="add-project-submit"
+            >
+              Add Project
+            </Button>
+            <Button
+              aria-label="Cancel adding project"
+              data-testid="hide-project-overlay"
+              variant="ghost"
+              colorScheme="teal"
+              onClick={() => setShow(false)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") setShow(false);
+              }}
+            >
+              Cancel
+            </Button>
+          </Flex>
+        </Box>
       )}
-      <span className="add-project__plus">+</span>
-      <span
-        aria-label="Add Project"
-        data-testid="add-project-action"
-        className="add-project__text"
-        onClick={() => setShow(!show)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") setShow(!show);
-        }}
-        role="button"
-        tabIndex={0}
-      >
-        Add Project
-      </span>
+      {!show && (
+        <Button
+          mt={6}
+          pl={2}
+          data-testid="add-project-action"
+          justifyContent="flex-start"
+          variant="ghost"
+          _focus={{ outline: "none" }}
+          rightIcon={<SmallAddIcon color="teal.500" boxSize={6} />}
+          onClick={() => setShow(!show)}
+          onKeyDown={() => setShow(!show)}
+        >
+          Add Project
+        </Button>
+      )}
     </div>
   );
-};
-
-AddProject.propTypes = {
-  shouldShow: PropTypes.bool.isRequired,
 };
