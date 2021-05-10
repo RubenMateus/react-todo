@@ -1,31 +1,24 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { FaRegListAlt, FaRegCalendarAlt } from "react-icons/fa";
 import moment from "moment";
-import PropTypes from "prop-types";
-import { Flex, Text } from "@chakra-ui/react";
+
+import { useSelector } from "react-redux";
+import { useFirestore } from "react-redux-firebase";
+
+import { Box, Flex, Input, Button } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
 import { useSelectedProjectValue } from "../context";
-import { ProjectOverlay } from "./ProjectOverlay";
-import { TaskDate } from "./TaskDate";
 
-export const AddTask = ({
-  showAddTaskMain = true,
-  shouldShowMain = false,
-  showQuickAddTask,
-  setShowQuickAddTask,
-}) => {
-  const [task, setTask] = useState("");
-  const [taskDate, setTaskDate] = useState("");
-  const [project, setProject] = useState("");
-  const [showMain, setShowMain] = useState(shouldShowMain);
-  const [showProjectOverlay, setShowProjectOverlay] = useState(false);
-  const [showTaskDate, setShowTaskDate] = useState(false);
+export const AddTask = () => {
+  const [taskName, setTaskName] = useState("");
+  const [showMain, setShowMain] = useState(false);
 
+  const auth = useSelector((state) => state.firebase.auth);
   const { selectedProject } = useSelectedProjectValue();
 
+  const firestore = useFirestore();
+
   const addTask = () => {
-    const projectId = project || selectedProject;
+    const projectId = selectedProject;
     let collatedDate = "";
 
     if (projectId === "TODAY") {
@@ -34,165 +27,78 @@ export const AddTask = ({
       collatedDate = moment().add(7, "days").format("DD/MM/YYYY");
     }
 
-    // return (
-    //   task &&
-    //   projectId &&
-    //   firebase
-    //     .firestore()
-    //     .collection("tasks")
-    //     .add({
-    //       archived: false,
-    //       projectId,
-    //       task,
-    //       date: collatedDate || taskDate,
-    //       userId: "ruben",
-    //     })
-    //     .then(() => {
-    //       setTask("");
-    //       setProject("");
-    //       setShowMain("");
-    //       setShowProjectOverlay(false);
-    //     })
-    // );
+    const task = {
+      archived: false,
+      projectId,
+      task: taskName,
+      date: collatedDate,
+      userId: auth.uid,
+    };
+
+    firestore
+      .collection("tasks")
+      .add(task)
+      .then(() => {
+        setTaskName("");
+        setShowMain("");
+      });
   };
 
   return (
-    <div
-      className={showQuickAddTask ? "add-task add-task__overlay" : "add-task"}
-      data-testid="add-task-comp"
-    >
-      {showAddTaskMain && !showMain && (
-        <Flex
+    <Box mt={4} data-testid="add-task-comp">
+      {!showMain && (
+        <Button
+          mt={1}
+          pl={2}
           data-testid="show-main-action"
-          align="center"
-          width="100%"
-          h={8}
-          cursor="pointer"
-          aria-label="Add Project"
+          justifyContent="flex-start"
+          variant="ghost"
+          _focus={{ outline: "none" }}
+          rightIcon={<SmallAddIcon color="teal.500" boxSize={6} />}
           onClick={() => setShowMain(!showMain)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") setShowMain(!showMain);
-          }}
+          onKeyDown={() => setShowMain(!showMain)}
         >
-          <SmallAddIcon color="teal.500" boxSize={6} />
-          <Text ml={2}>Add Task</Text>
-        </Flex>
+          Add Task
+        </Button>
       )}
-
-      {(showMain || showQuickAddTask) && (
-        <div className="add-task__main" data-testid="add-task-main">
-          {showQuickAddTask && (
-            <>
-              <div data-testid="quick-add-task">
-                <h2 className="header">Quick Add Task</h2>
-                <span
-                  className="add-task__cancel-x"
-                  data-testid="add-task-quick-cancel"
-                  aria-label="Cancel adding task"
-                  onClick={() => {
-                    setShowMain(false);
-                    setShowProjectOverlay(false);
-                    setShowQuickAddTask(false);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      setShowMain(false);
-                      setShowProjectOverlay(false);
-                      setShowQuickAddTask(false);
-                    }
-                  }}
-                  tabIndex={0}
-                  role="button"
-                >
-                  X
-                </span>
-              </div>
-            </>
-          )}
-          <ProjectOverlay
-            setProject={setProject}
-            showProjectOverlay={showProjectOverlay}
-            setShowProjectOverlay={setShowProjectOverlay}
+      {showMain && (
+        <>
+          <Input
+            focusBorderColor="teal.400"
+            data-testid="task-name"
+            onChange={(e) => setTaskName(e.target.value)}
+            value={taskName}
+            placeholder="Name your task"
+            variant="flushed"
+            autoFocus
           />
-          <TaskDate
-            setTaskDate={setTaskDate}
-            showTaskDate={showTaskDate}
-            setShowTaskDate={setShowTaskDate}
-          />
-          <input
-            className="add-task__content"
-            aria-label="Enter your task"
-            data-testid="add-task-content"
-            type="text"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
-          />
-          <button
-            type="button"
-            className="add-task__submit"
-            data-testid="add-task"
-            onClick={() =>
-              showQuickAddTask
-                ? addTask() && setShowQuickAddTask(false)
-                : addTask()
-            }
-          >
-            Add Task
-          </button>
-          {!showQuickAddTask && (
-            <span
-              className="add-task__cancel"
+          <Flex mt={4}>
+            <Button
+              mr={4}
+              colorScheme="teal"
+              disabled={!taskName}
+              onClick={addTask}
+              data-testid="add-task"
+            >
+              Add Task
+            </Button>
+            <Button
+              aria-label="Cancel adding a task"
               data-testid="add-task-main-cancel"
-              onClick={() => {
-                setShowMain(false);
-                setShowProjectOverlay(false);
-              }}
+              variant="ghost"
+              colorScheme="teal"
+              onClick={() => setShowMain(false)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   setShowMain(false);
-                  setShowProjectOverlay(false);
                 }
               }}
-              aria-label="Cancel adding a task"
-              tabIndex={0}
-              role="button"
             >
               Cancel
-            </span>
-          )}
-          <span
-            className="add-task__project"
-            data-testid="show-project-overlay"
-            onClick={() => setShowProjectOverlay(!showProjectOverlay)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") setShowProjectOverlay(!showProjectOverlay);
-            }}
-            tabIndex={0}
-            role="button"
-          >
-            <FaRegListAlt />
-          </span>
-          <span
-            className="add-task__date"
-            data-testid="show-task-date-overlay"
-            onClick={() => setShowTaskDate(!showTaskDate)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") setShowTaskDate(!showTaskDate);
-            }}
-            tabIndex={0}
-            role="button"
-          >
-            <FaRegCalendarAlt />
-          </span>
-        </div>
+            </Button>
+          </Flex>
+        </>
       )}
-    </div>
+    </Box>
   );
-};
-
-AddTask.propTypes = {
-  showAddTaskMain: PropTypes.bool.isRequired,
-  shouldShowMain: PropTypes.bool.isRequired,
-  showQuickAddTask: PropTypes.bool.isRequired,
-  setShowQuickAddTask: PropTypes.func.isRequired,
 };

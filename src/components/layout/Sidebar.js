@@ -31,6 +31,7 @@ export const Sidebar = () => {
       borderRight="1px"
       borderRightColor="gray.200"
       pt={8}
+      height="100%"
       spacing={6}
     >
       <List spacing={2} pr={2}>

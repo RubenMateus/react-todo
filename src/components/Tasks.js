@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { Box, Text, List, ListItem, Checkbox } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
@@ -10,7 +9,6 @@ import { staticProjects } from "../constants";
 export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue();
   const firestore = useFirestore();
-
   const auth = useSelector((state) => state.firebase.auth);
 
   useFirestoreConnect([
@@ -19,6 +17,7 @@ export const Tasks = () => {
       where: [
         ["projectId", "==", selectedProject],
         ["userId", "==", auth.uid],
+        ["archived", "==", false],
       ],
       populates: [{ child: "project", root: "projects" }],
     },
@@ -37,7 +36,7 @@ export const Tasks = () => {
   });
 
   const archiveTask = (id) => {
-    firestore().collection("tasks").doc(id).update({
+    firestore.collection("tasks").doc(id).update({
       archived: true,
     });
   };
@@ -56,26 +55,26 @@ export const Tasks = () => {
         {projectName}
       </Text>
       <List pt={4} pb={4} spacing={3}>
-        {tasks.map((task) => (
-          <ListItem key={`${task.id}`}>
-            <Checkbox
-              isChecked={task.archived}
-              colorScheme="teal"
-              aria-label={`Mark ${task} as done?`}
-              data-testid="checkbox-action"
-              onClick={() => archiveTask(task.id)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") archiveTask(task.id);
-              }}
-            >
-              {task.archived ? (
+        {tasks.length === 0 ? (
+          <Text as="i">No Tasks...</Text>
+        ) : (
+          tasks.map((task) => (
+            <ListItem key={`${task.id}`}>
+              <Checkbox
+                isChecked={task.archived}
+                colorScheme="teal"
+                aria-label={`Mark ${task} as done?`}
+                data-testid="checkbox-action"
+                onChange={() => archiveTask(task.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") archiveTask(task.id);
+                }}
+              >
                 <Text>{task.task}</Text>
-              ) : (
-                <Text as="s">{task.task}</Text>
-              )}
-            </Checkbox>
-          </ListItem>
-        ))}
+              </Checkbox>
+            </ListItem>
+          ))
+        )}
       </List>
 
       <AddTask />

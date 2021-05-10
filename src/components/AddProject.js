@@ -31,6 +31,7 @@ export const AddProject = () => {
       {show && (
         <Box data-testid="add-project-inner">
           <Input
+            mt={4}
             focusBorderColor="teal.400"
             data-testid="project-name"
             onChange={(e) => setProjectName(e.target.value)}
@@ -39,8 +40,9 @@ export const AddProject = () => {
             variant="flushed"
             autoFocus
           />
-          <Flex mt={4}>
+          <Flex mt={4} mb={4}>
             <Button
+              mr={4}
               colorScheme="teal"
               onClick={() => addProject()}
               data-testid="add-project-submit"
