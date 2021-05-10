@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import {
   Flex,
@@ -7,14 +6,6 @@ import {
   Box,
   IconButton,
   useColorMode,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  Button,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
   useDisclosure,
 } from "@chakra-ui/react";
 import { AddIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";

@@ -21,10 +21,6 @@ import { staticProjects } from "../../constants";
 export const Sidebar = () => {
   const { selectedProject, setSelectedProject } = useSelectedProjectValue();
 
-  const selectProject = (id, e) => {
-    setSelectedProject(id);
-  };
-
   return (
     <Stack
       data-testid="sidebar"
@@ -40,8 +36,8 @@ export const Sidebar = () => {
             key={proj.id}
             aria-label={proj.ariaLabel}
             data-testid={proj.id}
-            onClick={(e) => selectProject(proj.id, e)}
-            onKeyDown={(e) => selectedProject(proj.id, e)}
+            onClick={() => setSelectedProject(proj.id)}
+            onKeyDown={() => setSelectedProject(proj.id)}
             cursor="pointer"
           >
             <Button
