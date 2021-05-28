@@ -7,7 +7,7 @@
     "@chakra-ui/react": "^1.6.1",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
-    "firebase": "^8.5.0",
+    "firebase": "^8.6.3",
     "framer-motion": "^4.1.13",
     "moment": "^2.29.1",
     "prop-types": "15.7.2",
