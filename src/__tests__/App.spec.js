@@ -16,8 +16,8 @@ jest.mock("../firebase", () => ({
             ),
           })),
           where: jest.fn(() => ({
-            onSnapshot: jest.fn(() => () =>
-              Promise.resolve("Never mock firebase")
+            onSnapshot: jest.fn(
+              () => () => Promise.resolve("Never mock firebase")
             ),
           })),
         })),
