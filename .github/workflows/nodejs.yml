@@ -26,7 +26,7 @@ jobs:
     - run: yarn test
 
     - name: Codecov
-      uses: codecov/codecov-action@v1.4.1
+      uses: codecov/codecov-action@v1.5.2
 
     - name: Run Codacy Analysis CLI
       uses: codacy/codacy-analysis-cli-action@master
