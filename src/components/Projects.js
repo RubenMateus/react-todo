@@ -19,7 +19,7 @@ export const Projects = () => {
 
   if (!projects.length) {
     return (
-      <Text pb={8} color="gray" as="em">
+      <Text data-testid="no-projects" pb={8} color="gray" as="em">
         You have no projects...
       </Text>
     );

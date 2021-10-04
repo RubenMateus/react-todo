@@ -8,7 +8,7 @@ export const Login = () => {
   const history = useHistory();
 
   return (
-    <div>
+    <div data-testid="login-page">
       <StyledFirebaseAuth
         uiConfig={{
           signInFlow: "popup",
