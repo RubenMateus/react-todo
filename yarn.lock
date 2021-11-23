@@ -10538,13 +10538,13 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-redux-firebase@^3.10.0:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-3.10.0.tgz#f4c69145292fd8d0c5f44f53b37a6b307dbf3c56"
-  integrity sha512-reEPqUgNQRR2IHsNHPvyMXRZRZUvbQmA9oWzDBOK1FCxd/MiE9py6R7ezEtKs5iLEH55eDRpVPl2n3bYsndEiQ==
+react-redux-firebase@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-3.11.0.tgz#0723452a21158b7f6dd96fe38e65e4ddff2d2893"
+  integrity sha512-WJheUdKA8YdEQ0cGR75dwfLxokL8AALgo+8HK7OmC5IKYoS2YiputJhvjFWcdHtRKnf5mmt/bVc+LGzYWxlSXA==
   dependencies:
     hoist-non-react-statics "^3.3.2"
-    lodash "^4.17.20"
+    lodash "^4.17.21"
     prop-types "^15.7.2"
 
 react-redux@^7.2.4:
