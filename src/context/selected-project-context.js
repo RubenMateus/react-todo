@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export const SelectedProjectContext = createContext();
 
-export const SelectedProjectProvider = ({ children }) => {
+export var SelectedProjectProvider = function ({ children }) {
   const [selectedProject, setSelectedProject] = useState("inbox");
 
   return (

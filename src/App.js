@@ -9,22 +9,24 @@ import { Login } from "./pages/Login";
 import { Application } from "./pages/Application";
 import theme from "./theme";
 
-export const App = () => (
-  <>
-    <ColorModeScript initialColorMode="light" />
-    <ChakraProvider theme={theme}>
-      <Provider store={store}>
-        <ReactReduxFirebaseProvider {...reduxFirebaseProps}>
-          <BrowserRouter>
-            <Switch>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Application />
-            </Switch>
-          </BrowserRouter>
-        </ReactReduxFirebaseProvider>
-      </Provider>
-    </ChakraProvider>
-  </>
-);
+export var App = function () {
+  return (
+    <>
+      <ColorModeScript initialColorMode="light" />
+      <ChakraProvider theme={theme}>
+        <Provider store={store}>
+          <ReactReduxFirebaseProvider {...reduxFirebaseProps}>
+            <BrowserRouter>
+              <Switch>
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Application />
+              </Switch>
+            </BrowserRouter>
+          </ReactReduxFirebaseProvider>
+        </Provider>
+      </ChakraProvider>
+    </>
+  );
+};
