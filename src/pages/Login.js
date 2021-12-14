@@ -3,7 +3,7 @@ import { useFirebase } from "react-redux-firebase";
 import { useHistory } from "react-router-dom";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
-export const Login = () => {
+export var Login = function () {
   const firebase = useFirebase();
   const history = useHistory();
 

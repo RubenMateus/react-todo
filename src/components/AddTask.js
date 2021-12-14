@@ -8,7 +8,7 @@ import { Box, Flex, Input, Button } from "@chakra-ui/react";
 import { SmallAddIcon } from "@chakra-ui/icons";
 import { useSelectedProjectValue } from "../context";
 
-export const AddTask = () => {
+export var AddTask = function () {
   const [taskName, setTaskName] = useState("");
   const [showMain, setShowMain] = useState(false);
 
