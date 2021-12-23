@@ -4,7 +4,7 @@ import { useFirestoreConnect } from "react-redux-firebase";
 import { Text } from "@chakra-ui/react";
 import { Project } from "./Project";
 
-export const Projects = () => {
+export var Projects = function () {
   const auth = useSelector((state) => state.firebase.auth);
 
   useFirestoreConnect([
