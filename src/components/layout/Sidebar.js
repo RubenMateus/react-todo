@@ -18,7 +18,7 @@ import { useSelectedProjectValue } from "../../context";
 import { AddProject } from "../AddProject";
 import { staticProjects } from "../../constants";
 
-export const Sidebar = () => {
+export var Sidebar = function () {
   const { selectedProject, setSelectedProject } = useSelectedProjectValue();
 
   return (

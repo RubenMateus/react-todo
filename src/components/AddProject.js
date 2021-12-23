@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { SmallAddIcon } from "@chakra-ui/icons";
 import { useFirestore } from "react-redux-firebase";
 
-export const AddProject = () => {
+export var AddProject = function () {
   const [show, setShow] = useState(false);
   const [projectName, setProjectName] = useState("");
 
