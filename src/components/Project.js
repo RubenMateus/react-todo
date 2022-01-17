@@ -17,7 +17,7 @@ import { useSelectedProjectValue } from "../context";
 import { CircleIcon } from "./icons";
 import { getRandomColor } from "../helpers";
 
-export const Project = ({ project }) => {
+export var Project = function ({ project }) {
   const [showIcon, setShowIcon] = useState(false);
   const { selectedProject, setSelectedProject } = useSelectedProjectValue();
   const { colorMode } = useColorMode();
