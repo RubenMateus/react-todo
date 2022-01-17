@@ -11,7 +11,7 @@ import {
 import { AddIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import AddQuickTask from "../AddQuickTask";
 
-export const Header = () => {
+export var Header = function () {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
 

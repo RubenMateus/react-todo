@@ -6,7 +6,7 @@ import { AddTask } from "./AddTask";
 import { useSelectedProjectValue } from "../context";
 import { staticProjects } from "../constants";
 
-export const Tasks = () => {
+export var Tasks = function () {
   const { selectedProject } = useSelectedProjectValue();
   const firestore = useFirestore();
   const auth = useSelector((state) => state.firebase.auth);
